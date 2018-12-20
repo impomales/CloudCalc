@@ -5,17 +5,20 @@ class Calculator extends Component {
     super(props)
 
     this.state = {
-      firstNumber: 0,
-      secondNumber: 0,
+      firstNumber: '',
+      secondNumber: '',
       result: 0,
       operation: '',
-      title: '',
-      hasFirst: false,
-      hasSecond: false
+      title: ''
     }
   }
 
+  handleNumber(evt) {
+    this.setState({[evt.target.name]: evt.target.value})
+  }
+
   render() {
+    console.log(this.state)
     return (
       <div>
         <div className="calculator">
@@ -26,6 +29,7 @@ class Calculator extends Component {
                 name="firstNumber"
                 type="text"
                 value={this.state.firstNumber}
+                onChange={this.handleNumber.bind(this)}
               />
             </label>
 
@@ -35,6 +39,7 @@ class Calculator extends Component {
                 name="secondNumber"
                 type="text"
                 value={this.state.secondNumber}
+                onChange={this.handleNumber.bind(this)}
               />
             </label>
             <label htmlFor="operation">
