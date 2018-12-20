@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 
 import axios from 'axios'
+import {Labels} from './'
 
 class Calculator extends Component {
   constructor(props) {
@@ -11,8 +12,12 @@ class Calculator extends Component {
       secondNumber: '',
       result: 0,
       operation: '',
-      title: ''
+      title: '',
+      labels: []
     }
+  }
+  componentDidMount() {
+    this.loadLabels();
   }
 
   handleChange(evt) {
@@ -52,23 +57,32 @@ class Calculator extends Component {
     let secondNumber = Number(this.state.secondNumber)
     const {result, title, operation} = this.state
 
-    axios.post('/api/labels', {
-      firstNumber,
-      secondNumber,
-      operation,
-      result,
-      title
-    })
-    .then(res => res.data)
-    .then(() => {
-    })
-    .catch(err => {
-      console.error(err);
-    });
+    axios
+      .post('/api/labels', {
+        firstNumber,
+        secondNumber,
+        operation,
+        result,
+        title
+      })
+      .then(res => res.data)
+      .then(() => {
+        this.loadLabels();
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }
+
+  loadLabels() {
+    axios.get('/api/labels')
+      .then(res => res.data)
+      .then(labels => this.setState({labels}))
+      .catch(err => err);
   }
 
   render() {
-    console.log(this.state)
+    console.log(this.state.labels);
     return (
       <div>
         <div className="calculator">
@@ -131,7 +145,9 @@ class Calculator extends Component {
           </form>
         </div>
 
-        <div className="labels" />
+        <div className="labels">
+          <Labels labels={this.state.labels}/>
+        </div>
       </div>
     )
   }
