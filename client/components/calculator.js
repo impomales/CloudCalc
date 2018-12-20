@@ -9,81 +9,65 @@ class Calculator extends Component {
       secondNumber: 0,
       result: 0,
       operation: '',
-      title: ''
+      title: '',
+      hasFirst: false,
+      hasSecond: false
     }
   }
+
   render() {
     return (
       <div>
         <div className="calculator">
-          <div className="display" />
+          <form>
+            <label htmlFor="firstNumber">
+              Enter first number:{' '}
+              <input
+                name="firstNumber"
+                type="text"
+                value={this.state.firstNumber}
+              />
+            </label>
 
-          <div className="buttons">
-            <table>
-              <tr>
-                <td>
-                  <button type="button">7</button>
-                </td>
-                <td>
-                  <button type="button">8</button>
-                </td>
-                <td>
-                  <button type="button">9</button>
-                </td>
-                <td>
-                  <button type="button">+</button>
-                </td>
-                <td>
-                  <button type="button">-</button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <button type="button">4</button>
-                </td>
-                <td>
-                  <button type="button">5</button>
-                </td>
-                <td>
-                  <button type="button">6</button>
-                </td>
-                <td>
-                  <button type="button">*</button>
-                </td>
-                <td>
-                  <button type="button">/</button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <button type="button">3</button>
-                </td>
-                <td>
-                  <button type="button">2</button>
-                </td>
-                <td>
-                  <button type="button">1</button>
-                </td>
-                <td>
-                  <button type="button">.</button>
-                </td>
-                <td>
-                  <button type="button">=</button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <button type="button">0</button>
-                </td>
-              </tr>
-            </table>
-          </div>
+            <label htmlFor="secondNumber">
+              Enter second number:{' '}
+              <input
+                name="secondNumber"
+                type="text"
+                value={this.state.secondNumber}
+              />
+            </label>
+            <label htmlFor="operation">
+              Select an operation:
+              <select name="operation">
+                <option value="" />
+                <option value="+">+</option>
+                <option value="-">-</option>
+                <option value="*">*</option>
+                <option value="/">/</option>
+              </select>
+            </label>
 
-          <div>
-            <div className="output" />
-            <button type="submit">Save</button>
-          </div>
+            <div>
+              <div className="output">
+                <button type="button">Calculate</button>
+                <h2>{this.state.result}</h2>
+              </div>
+              <div className="save-label">
+                <label>
+                  Save result as a label:
+                  <input
+                    type="text"
+                    value={this.state.title}
+                    placeholder="title"
+                  />
+                </label>
+                <button type="submit">Save</button>
+              </div>
+            </div>
+          </form>
         </div>
+
         <div className="labels" />
       </div>
     )
