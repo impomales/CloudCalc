@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 
 import axios from 'axios'
+import {Labels} from './'
 
 class Calculator extends Component {
   constructor(props) {
@@ -52,19 +53,28 @@ class Calculator extends Component {
     let secondNumber = Number(this.state.secondNumber)
     const {result, title, operation} = this.state
 
-    axios.post('/api/labels', {
-      firstNumber,
-      secondNumber,
-      operation,
-      result,
-      title
-    })
-    .then(res => res.data)
-    .then(() => {
-    })
-    .catch(err => {
-      console.error(err);
-    });
+    axios
+      .post('/api/labels', {
+        firstNumber,
+        secondNumber,
+        operation,
+        result,
+        title
+      })
+      .then(res => res.data)
+      .then(() => {
+        this.loadLabels();
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }
+
+  loadLabels() {
+    return axios.get('/api/labels')
+      .then(res => res.data)
+      .then(labels => labels)
+      .catch(err => err);
   }
 
   render() {
@@ -131,7 +141,9 @@ class Calculator extends Component {
           </form>
         </div>
 
-        <div className="labels" />
+        <div className="labels">
+          <Labels loadLabels={this.loadLabels}/>
+        </div>
       </div>
     )
   }
