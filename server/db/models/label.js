@@ -15,6 +15,10 @@ const Label = db.define('label', {
     type: Sequelize.FLOAT,
     allowNull: false
   },
+  result: {
+    type: Sequelize.FLOAT,
+    allowNull: false
+  },
   operation: {
     type: Sequelize.ENUM('+', '-', '*', '/'),
     allowNull: false
