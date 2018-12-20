@@ -13,8 +13,34 @@ class Calculator extends Component {
     }
   }
 
-  handleNumber(evt) {
+  handleChange(evt) {
     this.setState({[evt.target.name]: evt.target.value})
+  }
+
+  performOp() {
+    let firstNumber = Number(this.state.firstNumber)
+    let secondNumber = Number(this.state.secondNumber)
+
+    let result
+
+    switch (this.state.operation) {
+      case '+':
+        result = firstNumber + secondNumber
+        break
+      case '-':
+        result = firstNumber - secondNumber
+        break
+      case '*':
+        result = firstNumber * secondNumber
+        break
+      case '/':
+        result = firstNumber / secondNumber
+        break
+      default:
+        result = ''
+    }
+
+    this.setState({result})
   }
 
   render() {
@@ -29,7 +55,7 @@ class Calculator extends Component {
                 name="firstNumber"
                 type="text"
                 value={this.state.firstNumber}
-                onChange={this.handleNumber.bind(this)}
+                onChange={this.handleChange.bind(this)}
               />
             </label>
 
@@ -39,12 +65,16 @@ class Calculator extends Component {
                 name="secondNumber"
                 type="text"
                 value={this.state.secondNumber}
-                onChange={this.handleNumber.bind(this)}
+                onChange={this.handleChange.bind(this)}
               />
             </label>
             <label htmlFor="operation">
               Select an operation:
-              <select name="operation">
+              <select
+                name="operation"
+                value={this.state.operation}
+                onChange={this.handleChange.bind(this)}
+              >
                 <option value="" />
                 <option value="+">+</option>
                 <option value="-">-</option>
@@ -62,8 +92,10 @@ class Calculator extends Component {
                 <label>
                   Save result as a label:
                   <input
+                    name="title"
                     type="text"
                     value={this.state.title}
+                    onChange={this.handleChange.bind(this)}
                     placeholder="title"
                   />
                 </label>
