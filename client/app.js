@@ -1,13 +1,12 @@
 import React from 'react'
 
-import {Navbar} from './components'
-import Routes from './routes'
+import {Calculator} from './components'
 
 const App = () => {
   return (
-    <div>
-      <Navbar />
-      <Routes />
+    <div className="container">
+      <h1 className="main-header">CloudCalc</h1>
+      <Calculator />
     </div>
   )
 }
