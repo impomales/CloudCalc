@@ -64,7 +64,7 @@ class Calculator extends Component {
       this.loadLabels();
     })
     .catch(err => {
-      console.err(err);
+      console.error(err);
     });
   }
 
