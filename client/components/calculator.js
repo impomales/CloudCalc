@@ -12,8 +12,12 @@ class Calculator extends Component {
       secondNumber: '',
       result: 0,
       operation: '',
-      title: ''
+      title: '',
+      labels: []
     }
+  }
+  componentDidMount() {
+    this.loadLabels();
   }
 
   handleChange(evt) {
@@ -71,14 +75,14 @@ class Calculator extends Component {
   }
 
   loadLabels() {
-    return axios.get('/api/labels')
+    axios.get('/api/labels')
       .then(res => res.data)
-      .then(labels => labels)
+      .then(labels => this.setState({labels}))
       .catch(err => err);
   }
 
   render() {
-    console.log(this.state)
+    console.log(this.state.labels);
     return (
       <div>
         <div className="calculator">
@@ -142,7 +146,7 @@ class Calculator extends Component {
         </div>
 
         <div className="labels">
-          <Labels loadLabels={this.loadLabels}/>
+          <Labels labels={this.state.labels}/>
         </div>
       </div>
     )
