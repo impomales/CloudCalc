@@ -1,14 +1,35 @@
-const router = require('express').Router();
-const { Label } = require('../db/models');
+const router = require('express').Router()
+const {Label} = require('../db/models')
 
 router.get('/', async (req, res, next) => {
   try {
-    const labels = await Label.findAll();
+    const labels = await Label.findAll()
 
-    res.json(labels);
+    res.status(200).json(labels)
   } catch (err) {
-    next(err);
+    next(err)
   }
 })
 
-module.exports = router;
+router.post('/', async (req, res, next) => {
+  try {
+    const {title, firstNumber, secondNumber, result, operation} = req.body
+
+    let label = await Label.create({
+      title,
+      firstNumber,
+      secondNumber,
+      result,
+      operation
+    })
+
+    res.status(201).json({
+      message: 'label successfully created',
+      label
+    })
+  } catch (err) {
+    next(err)
+  }
+})
+
+module.exports = router
