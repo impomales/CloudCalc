@@ -8,15 +8,16 @@ const Label = db.define('label', {
     allowNull: false
   },
   firstNumber: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.FLOAT,
     allowNull: false
   },
   secondNumber: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.FLOAT,
     allowNull: false
   },
   operation: {
-    type: Sequelize.ENUM('+', '-', '*', '/')
+    type: Sequelize.ENUM('+', '-', '*', '/'),
+    allowNull: false
   }
 })
 
