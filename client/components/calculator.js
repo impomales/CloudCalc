@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 
+import axios from 'axios'
+
 class Calculator extends Component {
   constructor(props) {
     super(props)
@@ -43,12 +45,34 @@ class Calculator extends Component {
     this.setState({result})
   }
 
+  handleSubmit(evt) {
+    evt.preventDefault()
+
+    let firstNumber = Number(this.state.firstNumber)
+    let secondNumber = Number(this.state.secondNumber)
+    const {result, title, operation} = this.state
+
+    axios.post('/api/labels', {
+      firstNumber,
+      secondNumber,
+      operation,
+      result,
+      title
+    })
+    .then(res => res.data)
+    .then(() => {
+    })
+    .catch(err => {
+      console.error(err);
+    });
+  }
+
   render() {
     console.log(this.state)
     return (
       <div>
         <div className="calculator">
-          <form>
+          <form onSubmit={this.handleSubmit.bind(this)}>
             <label htmlFor="firstNumber">
               Enter first number:{' '}
               <input
@@ -85,7 +109,9 @@ class Calculator extends Component {
 
             <div>
               <div className="output">
-                <button type="button">Calculate</button>
+                <button type="button" onClick={this.performOp.bind(this)}>
+                  Calculate
+                </button>
                 <h2>{this.state.result}</h2>
               </div>
               <div className="save-label">
